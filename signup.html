@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroTEC</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/styles.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">AeroTEC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="inicioUser.html">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Regístrate aquí</h1>
+        <div class="section">
+            <h2>Ingresa tus datos por favor</h2>
+            <form id="signupForm">
+                <div class="input-group flex-nowrap" data-bs-theme="dark">
+                    <input type="text" class="form-control" placeholder="Nombre(s)" aria-label="nombre" aria-describedby="addon-wrapping" name="nombre" required>
+                </div>
+                <p></p>
+                <div class="input-group flex-nowrap" data-bs-theme="dark">
+                    <input type="text" class="form-control" placeholder="Apellido Paterno" aria-label="apellidop" aria-describedby="addon-wrapping" name="apellidop" required>
+                </div>
+                <p></p>
+                <div class="input-group flex-nowrap" data-bs-theme="dark">
+                    <input type="text" class="form-control" placeholder="Apellido Materno" aria-label="apellidom" aria-describedby="addon-wrapping" name="apellidom" required>
+                </div>
+                <p></p>
+                <div class="row">
+                    <div class="col">
+                        <label for="" style="color: aliceblue;">Fecha de nacimiento</label>
+                        <div class="input-group flex-nowrap" data-bs-theme="dark">
+                            <input type="date" class="form-control" placeholder="Fecha de nacimiento" aria-label="date" aria-describedby="addon-wrapping" name="nacimiento" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for=""></label>
+                        <div class="input-group mb-3" data-bs-theme="dark">
+                            <select class="form-select" id="inputGroupSelect01" name="genero" required>
+                                <option value="" disabled selected>Elige aquí tu género...</option>
+                                <option value="1">Hombre</option>
+                                <option value="2">Mujer</option>
+                                <option value="3">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="input-group flex-nowrap" data-bs-theme="dark">
+                    <input type="email" class="form-control" placeholder="Correo Electrónico" aria-label="email" aria-describedby="addon-wrapping" name="email" required>
+                </div>
+                <p></p>
+                <div class="row">
+                    <div class="col">
+                        <input type="password" class="form-control" aria-describedby="passwordHelpBlock" data-bs-theme="dark" placeholder="Contraseña" name="pass" required>
+                        <div id="passwordHelpBlock" class="form-text" data-bs-theme="dark">
+                            Tu contraseña debe tener entre 8 y 20 caracteres, usar letras y números, no usar símbolos ni espacios.
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input type="password" class="form-control" aria-describedby="passwordHelpBlock" data-bs-theme="dark" placeholder="Confirma tu contraseña" name="pass1" required>
+                        <div id="passwordHelpBlock" class="form-text" data-bs-theme="dark">
+                            Debe ser la misma contraseña que ya ingresaste.
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center" data-bs-theme="dark">
+                    <button type="submit" class="btn btn-outline-secondary btn-lg" style="color: aliceblue;">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Bootstrap JS y dependencias de Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            // Obtener los valores del formulario
+            const nombre = event.target.nombre.value;
+            const apellidop = event.target.apellidop.value;
+            const apellidom = event.target.apellidom.value;
+            const nacimiento = event.target.nacimiento.value;
+            const genero = event.target.genero.value;
+            const email = event.target.email.value;
+            const pass = event.target.pass.value;
+            const pass1 = event.target.pass1.value;
+        
+            // Verificar que las contraseñas coincidan
+            if (pass !== pass1) {
+                alert("Las contraseñas no coinciden.");
+                return;
+            }
+        
+            // Crear un objeto con los datos del usuario
+            const usuario = {
+                nombre,
+                apellidop,
+                apellidom,
+                nacimiento,
+                genero,
+                email,
+                pass
+            };
+        
+            // Obtener el almacenamiento de usuarios del localStorage
+            let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        
+            // Verificar si el usuario ya está registrado
+            if (usuarios.some(u => u.email === email)) {
+                alert("Este correo ya está registrado.");
+                return;
+            }
+        
+            // Agregar el nuevo usuario al array
+            usuarios.push(usuario);
+        
+            // Guardar el array actualizado en localStorage
+            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        
+            alert("Registro exitoso.");
+            window.location.href = 'signin.html';  // Redirigir a la página de inicio de sesión o la página que desees
+        });
+        </script>
+</body>
+
+</html>
